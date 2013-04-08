@@ -1,0 +1,47 @@
+
+<!-- To save space I'm going to reuse the div --> 
+<div id="issue">
+
+	Report an Issue:<br />
+	<form action="inc/forms/issue.php" method="post">
+		<label for="u_title">Issue Title</label>
+			<input type="text" name="title" size="75" id="u_tite" />
+			
+		<br />
+		Priority: 
+			<select name="priority">
+			<?php
+				foreach($config['priority'] as  $key => $value) {
+					echo '<option value="' . $key . '">' . $value . '</option>';
+				}
+			?>
+			</select>
+		
+		<br />
+		Project: 
+			<select name="project">
+			<?php
+				// Grab the projects
+				$sql = 'SELECT * FROM `' . $db . '`.`projects` ORDER BY `project_id` DESC LIMIT 100';
+					$projects = $mysql->search($sql);
+				
+				foreach($projects as  $project) {
+					echo '<option value="' . $project['project_id'] . '">' . $project['title'] . '</option>';
+				}
+			?>
+			</select>
+			
+		<br />
+		Status: 
+			<select name="status">
+				<option value="0">reported</option>
+			</select>
+		
+		<br />
+		<textarea name="summary" id="u_summary" rows="10" cols="75"></textarea>
+		
+		<br />
+		
+		<input type="button" value="Submit" onclick="check_form();" />
+	</form>
+</div>

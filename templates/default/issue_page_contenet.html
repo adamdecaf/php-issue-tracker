@@ -1,0 +1,58 @@
+
+<div id="issue" style="height:<?php echo (count($comments) * 250) + 300; ?>px;"> 
+	<div id="issue_header">
+		<a href="manage.php?id=<?php echo $issue[0]['issue_id']; ?>" style="float:right;">Manage</a>
+		
+	Issue: 
+		<a href="issue.php?id=<?php echo $issue[0]['issue_id']; ?>"><?php echo $issue[0]['issue_id']; ?></a>
+		
+		<span id="title"><?php echo $issue[0]['title']; ?></span><br />
+	</div>
+	
+		<div id="right">
+			Summary:<br />
+				<?php echo $issue[0]['summary']; ?>
+			
+			<br /><br />
+			
+			Comments:<br />
+				<?php
+					if ($comments[0]['comment_id'] !== '') {
+						foreach($comments as $comment) {
+							echo '<div id="comment">';
+								echo '#' . $comment['comment_id'] . ' From:' . $users[$comment['from']]['username'];
+								echo ' (' . $comment['created'] . ')<br />';
+								echo '<pre>' . wordwrap($comment['comment'], 100, '<br />') . '</pre><br /><br />';
+							echo '</div>';
+						}
+					} else {
+						echo '<div id="comment">No comments at this time.</div>';
+					}
+				?>
+				
+			<br /><br />
+			Comment: 
+				<input type="button" value="Submit" onclick="check_form();" />
+				<br />
+				
+			<form action="inc/forms/comment.php" method="post">
+				<label for="u_name">Your Name: </label>
+					<input type="text" name="username" id="u_name" /><br />
+					
+				<label for="u_pass">Your Password: </label>
+					<input type="password" name="password" id="u_pass" /><br />
+				
+				<input type="hidden" name="issue" value="<?php echo $id; ?>" />
+				<textarea name="comment" rows="15" cols="75" id="u_comment"></textarea>
+			</form>
+		</div>
+		
+		<div id="left">
+			<span id="status">Status: <?php echo $config['status'][$issue[0]['status']]; ?></span><br />
+			<span id="priority">Priority: <?php echo $config['priority'][$issue[0]['priority']]; ?></span><br />
+			<span id="project">Project: <?php echo $project[0]['title']; ?></span><br />
+			<span id="created">Created: <?php echo $issue[0]['created']; ?></span><br /><br />
+			
+			<span id="assigned">Assigned to: <?php echo $user['username']; ?></span><br />
+		</div>
+</div>

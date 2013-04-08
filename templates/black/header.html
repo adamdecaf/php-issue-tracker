@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Issue Tracker</title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="templates/<?php echo $template_dir; ?>/css/style.css" />
+</head>
+<body>
+
+	<div id="header">
+		<!-- onclick="window.location='index.php';" -->
+		<h3>Issue Tracker</h3>
+		
+		<div id="menu">
+			<ul>
+				<li><a href="index.php">Home</a></li>
+				<!-- <li><a href="my_view.php">My Issues</a></li> -->
+				<li><a href="report.php">Report an Issue</a></li>
+				<!-- <li><a href="news.php">News</a></li> -->
+				<!-- <li><a href="account.php">My Account</a></li> -->
+				
+					<li><span style="margin-left:25px;" class="command">Commands: </span></li>
+					<li><a href="javascript:void(0);" class="command" onclick="no_colors();">No Colors</a></li>
+					
+				<li style="float:right;"><a href="register.php">Register</a></li>
+			</ul>
+		</div>
+	</div>

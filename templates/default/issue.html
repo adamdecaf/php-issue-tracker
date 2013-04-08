@@ -1,0 +1,13 @@
+
+	<tr class="<?php echo $config['priority'][$issue['priority']]; ?>" onclick="window.location='issue.php?id=<?php echo $issue['issue_id']; ?>';">
+		<td class="id"><a href="issue.php?id=<?php echo $issue['issue_id']; ?>"><?php echo $issue['issue_id']; ?></a></td>
+		<td class="priority"><?php echo $config['priority'][$issue['priority']]; ?></td>
+		<td class="project"><?php echo $projects[$issue['project']]['title']; ?></td>
+		<td class="status"><?php echo ucfirst($config['status'][$issue['status']]); ?></td>
+		<td class="created"><?php echo $issue['created']; ?></td>
+		<td class="assigned"><?php echo $users[$issue['assigned_to']]['username']; ?></td>
+		<td class="title"><?php echo substr($issue['title'], 0, 100); ?></td>
+		<td class="summary"><?php echo substr($issue['summary'], 0, 120); ?>...</td>
+	</tr>
+
+	

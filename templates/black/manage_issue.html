@@ -1,0 +1,83 @@
+
+<div id="issue">
+
+	<form action="inc/forms/manage_issue.php" method="post">
+	
+		<?php
+			echo 'Issue: #' . $issue['issue_id'] . ' <strong>' . $issue['title'] . '</strong><br />';
+			echo 'Created On: ' . $issue['created'] . '<br />';
+			echo '<pre>' . wordwrap($issue['summary'], 100, '<br />') . '</pre>';
+			
+			$js = array();
+		?>
+		
+		Priority: 
+			<select name="priority">
+			<?php
+
+				foreach($config['priority'] as  $key => $value) {
+					($key == $issue['priority']) ? $selected = ' selected="selected"' : $selected = '';
+					echo '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
+				}
+			?>
+			</select>
+		
+		<br />
+		Project: 
+			<select name="project">
+			<?php
+				// Grab the projects
+				$sql = 'SELECT * FROM `' . $db . '`.`projects` ORDER BY `project_id` ASC LIMIT 100';
+					$projects = $mysql->search($sql);
+				
+				foreach($projects as  $project) {
+					($project['project_id'] == $issue['project']) ? $selected = ' selected="selected"' : $selected = '';
+					echo '<option value="' . $project['project_id'] . '"' . $selected . '>' . $project['title'] . '</option>';
+				}
+			?>
+			</select>
+			
+		<br />
+		Status: 
+			<select name="status">
+			<?php
+				foreach($config['status'] as  $key => $value) {
+					($key == $issue['status']) ? $selected = ' selected="selected"' : $selected = '';
+					echo '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
+				}
+			?>
+			</select>
+			
+		<br />
+		Assigned:
+			<select name="assigned">
+			<?php
+				// Grab the projects
+				$sql = 'SELECT * FROM `' . $db . '`.`users` ORDER BY `user_id` ASC LIMIT 100';
+					$users = $mysql->search($sql);
+				
+				foreach($users as  $user) {
+					($user['user_id'] == $issue['assigned_to']) ? $selected = ' selected="selected"' : $selected = '';
+					echo '<option value="' . $user['user_id'] . '"' . $selected . '>' . $user['username'] . '</option>';
+				}
+			?>
+			</select>
+			
+		<br /><br />
+		
+		<label for="u_user">Your Username: </label>
+			<input type="text" name="username" id="u_user" /><br />
+			
+		<label for="u_pass">Your Password: </label>
+			<input type="text" name="password" id="u_pass" />
+		
+		<br /><br />
+		Comment on change(s):<br />
+		<textarea name="comment" rows="15" cols="70"></textarea>
+		
+		<br /><br />
+		<input type="hidden" name="issue_id" value="<?php echo $_GET['id']; ?>" />
+		<input type="submit" value="Submit" />
+	</form>
+	
+</div>
